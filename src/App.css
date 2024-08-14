@@ -36,9 +36,3 @@
     transform: rotate(360deg);
   }
 }
-.prueba{
-  display: flex;
-  flex-direction: row;
-  cursor: pointer;
-  margin-top: 1vh;
-}
