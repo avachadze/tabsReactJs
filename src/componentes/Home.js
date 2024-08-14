@@ -10,7 +10,7 @@ import { IoIosHappy } from "react-icons/io";
 
 function Home() {
     const [toggle, setToggle] = useState("TAB_inicio")
-    const [visibles] = useState(["TAB_inicio"]);
+
     const opciones = [{
         id: "TAB_inicio",
         texto: "Inicio",
@@ -26,7 +26,10 @@ function Home() {
             if (element) {
                 element.classList.remove("hidden")
             }
-            visibles.push(this.siguiente)
+            opciones.map((opcion) => (
+                opcion.id === this.siguiente && visibles.push(opcion)
+            ))
+            
         },
         contenido: <Inicio />,
         botonSiguiente: "Nuevo Viaje"
@@ -46,9 +49,10 @@ function Home() {
             if (element) {
                 element.classList.remove("hidden")
             }
-            visibles.push(this.siguiente)
-
-
+            opciones.map((opcion) => (
+                opcion.id === this.siguiente && visibles.push(opcion)
+            ))
+            
         },
         contenido: <Descripcion />,
         botonSiguiente: "Siguiente"
@@ -68,8 +72,10 @@ function Home() {
             if (element) {
                 element.classList.remove("hidden")
             }
-            visibles.push(this.siguiente)
-
+            opciones.map((opcion) => (
+                opcion.id === this.siguiente && visibles.push(opcion)
+            ))
+            
         },
         contenido: <Incluido />,
         botonSiguiente: "Siguiente"
@@ -89,15 +95,19 @@ function Home() {
             if (element) {
                 element.classList.remove("hidden")
             }
-            visibles.push(this.siguiente)
-
+            opciones.map((opcion) => (
+                opcion.id === this.siguiente && visibles.push(opcion)
+            ))
+            
         },
         contenido: <Prueba />,
         botonSiguiente: "Nooooooo"
     }
     ]
-    console.log(Object.values(opciones).includes("TAB_incluido"))
-    console.log(visibles)
+    const [visibles] = useState([opciones[0]]);
+
+
+    //console.log(Object.values(opciones).includes("TAB_incluido"))
     /*    function next(ev, next) {
            ev.preventDefault()
            if (opciones[next.id + 1]) {
