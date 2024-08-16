@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Inicio({}) {
+function Inicio() {
 
     return (
         <div className='text-start text-white'>

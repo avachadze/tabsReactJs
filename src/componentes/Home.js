@@ -2,15 +2,15 @@ import { FaCheckCircle } from "react-icons/fa";
 import Inicio from "./secciones/Inicio";
 import Incluido from "./secciones/Incluido";
 import Descripcion from "./secciones/Descripcion";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FaBookOpen } from "react-icons/fa";
 import { FaCheckDouble } from "react-icons/fa";
 import Prueba from "./secciones/Prueba";
 import { IoIosHappy } from "react-icons/io";
 import { FaRegCopyright } from "react-icons/fa";
 import { GoDotFill } from "react-icons/go";
-import { FaCloudMoon } from "react-icons/fa";
-import { FaCloudSun } from "react-icons/fa";
+import DarkThemeSwitcher from "./DarkThemeSwitcher";
+import Swal from 'sweetalert2'
 
 function Home() {
     const [toggle, setToggle] = useState("TAB_inicio")
@@ -21,7 +21,7 @@ function Home() {
         descripcionTitulo: "Bienvenido al programa de carga de Viajes",
         descripcion: "Selecciona lo que quieras hacer",
         finished: " ",
-        icon: <FaCheckCircle/>,
+        icon: <FaCheckCircle />,
         next: next,
         contenido: <Inicio />,
         botonSiguiente: "Nuevo Viaje"
@@ -32,7 +32,7 @@ function Home() {
         siguiente: "TAB_incluido",
         descripcionTitulo: "Descripcion",
         descripcion: "detalles importantes",
-        icon: <FaBookOpen  />,
+        icon: <FaBookOpen />,
         next: next,
         contenido: <Descripcion />,
         botonSiguiente: "Siguiente"
@@ -43,7 +43,7 @@ function Home() {
         siguiente: "TAB_prueba",
         descripcionTitulo: "Incluido/ No incluido",
         descripcion: "Si el servicio no está seleccionado, el cliente lo verá como no incluido.",
-        icon: <FaCheckDouble/>,
+        icon: <FaCheckDouble />,
         next: next,
         contenido: <Incluido />,
         botonSiguiente: "Siguiente"
@@ -54,18 +54,17 @@ function Home() {
         siguiente: "TAB_descripcion",
         descripcionTitulo: "Prueba",
         descripcion: "Esta es la seccion de prueba",
-        icon: <IoIosHappy/>,
+        icon: <IoIosHappy />,
         next: next,
         contenido: <Prueba />,
         botonSiguiente: "Boton prueba"
     }
     ]
-    //Array de la lista visible.
+
     const [visibles] = useState([opciones[0]]);
-    //Funcion para determinar que página tiene que aparecer despues de dar al boton siguiente.
-    function next(actual) {
+    function next(ev, actual) {
+        ev.preventDefault();
         setToggle(actual.siguiente);
-        //Añadir objeto a la lista visible evitando si esta duplicado.
         opciones.forEach((opcion) => {
             if (opcion.id === actual.siguiente) {
                 const exists = visibles.some((visible) => visible.id === opcion.id);
@@ -75,34 +74,6 @@ function Home() {
             }
         });
     }
-    //Boton guardar y salir
-    function handleSubmit(ev) {
-        ev.preventDefault();
-        alert("guardado")
-    }
-    //DARK MODE
-    const [isDark, setDark] = useState();
-    let color = localStorage.getItem("theme");
-    useEffect(() => {
-        if (color === "dark") {
-            setDark(true)
-        } else {
-            setDark(false)
-        }
-        document.body.classList.add(color);
-    }, [color]);
-    const darkModeHandler = () => {
-        if (document.body.classList.contains("dark")) {
-            localStorage.setItem("theme", "light");
-            document.body.classList.remove("dark");
-            setDark(false);
-        } else {
-            localStorage.setItem("theme", "dark");
-            document.body.classList.add("dark");
-            setDark(true);
-        }
-    }
-    //DARK MODE
 
     return (
         <div className="App min-h-[100vh] gap-3 grid grid-cols-12 p-5  dark:bg-slate-900">
@@ -118,16 +89,14 @@ function Home() {
                 </ul>
                 <div className="text-cyan-300 px-5 flex items-center gap-3">
                     <FaRegCopyright />
-                      2017 Dit Gestion.
+                    2017 Dit Gestion.
                 </div>
             </aside>
             <section className='h-full  col-span-12 md:col-span-8 lg:col-span-10  bg-slate-800 p-5'>
-                <span onClick={() => darkModeHandler()} className="text-white hover:text-cyan-400 transition cursor-pointer bg-slate-700 p-2 rounded-full float-right text-2xl">
+                <DarkThemeSwitcher />
 
-                    {isDark ? <FaCloudSun /> : <FaCloudMoon />}
-                </span>
                 {opciones.map((opcion) => (
-                    <div key={opcion.id} className={toggle === opcion.id ? "show-content" : "content"}>
+                    <div key={opcion.id} className={toggle === opcion.id ? "show-content" : "hide"}>
                         <div className='border-b text-left border-cyan-400 w-full pb-5 mb-4'>
                             <h2 className='text-2xl font-semibold text-white'>
                                 {opcion.descripcionTitulo}
@@ -136,14 +105,14 @@ function Home() {
                                 {opcion.descripcion}
                             </span>
                         </div>
-                        <form onSubmit={ev => handleSubmit(ev)}>
+                        <form onSubmit={(ev) => opcion.next(ev, opcion)}>
                             {opcion.contenido}
                             <div className='mt-3 flex justify-end w-full gap-3'>
-                                <button onClick={() => opcion.next(opcion)} type="button" className='bg-cyan-500 hover:bg-cyan-600 text-white font-semibold p-4 rounded' >
+                                <button type="submit" className='bg-cyan-500 hover:bg-cyan-600 text-white font-semibold p-4 rounded' >
                                     {opcion.botonSiguiente}
                                 </button>
-                                {opciones.length === visibles.length && <button type="submit" className='bg-cyan-500 hover:bg-cyan-600 text-white font-semibold p-4 rounded' >
-                                    Guardar y salir
+                                {visibles.length === opciones.length && <button type="button" className='bg-cyan-500 hover:bg-cyan-600 text-white font-semibold p-4 rounded' >
+                                    Cerrar
                                 </button>}
                             </div>
                         </form>
