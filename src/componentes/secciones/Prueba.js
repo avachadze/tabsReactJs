@@ -1,7 +1,8 @@
 import React from 'react'
 import { IoIosHappy } from "react-icons/io";
 
-function Prueba() {
+function Prueba({finished}) {
+
   return (
     <div className='text-3xl text-white'>
        <IoIosHappy /> 

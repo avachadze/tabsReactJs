@@ -1,10 +1,6 @@
 import React from 'react'
 
-function Descripcion({ setToggle }) {
-    function updateToggle() {
-        setToggle(2)
-  
-    }
+function Descripcion({finished}) {
     return (
         <div className='text-start'>
             <div>
