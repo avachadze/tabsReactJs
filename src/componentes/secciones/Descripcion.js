@@ -25,14 +25,13 @@ function Descripcion({ invalid }) {
                     </div>
                 </li>
             </ul>
-
             <div className=' mt-3'>
                 <label htmlFor="nombre_pagina" className="mb-4 font-semibold text-gray-900 dark:text-white">Nombre del programa (*) </label>
-                <input type="text" id="nombre_pagina" className="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Introduce el nombre de la página" required onInvalid={e => invalid(e)} onInput={e => e.target.setCustomValidity('')} />
+                <input type="text" id="nombre_pagina" className="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Introduce el nombre de la página" minLength={5} required onInvalid={e => invalid(e)} onInput={e => e.target.setCustomValidity('')} />
             </div>
             <div className=' mt-3'>
-                <label htmlFor="message" className="mb-4 font-semibold text-gray-900 dark:text-white">Pequeña descripcion</label>
-                <textarea id="message" rows="4" className="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Esta caja es solo para una breve descripción turistica"></textarea>
+                <label htmlFor="message" className="mb-4 font-semibold text-gray-900 dark:text-white">Pequeña descripcion (*)</label>
+                <textarea id="message" rows="4" className="mt-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Esta caja es solo para una breve descripción turistica"   required onInvalid={e => invalid(e)} onInput={e => e.target.setCustomValidity('')}></textarea>
             </div>
 
         </div>
