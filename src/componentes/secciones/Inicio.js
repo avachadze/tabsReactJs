@@ -1,9 +1,10 @@
 import React from 'react'
 
-function Inicio() {
+function Inicio({ next }) {
     return (
         <div className='text-start dark:text-white'>
-                Hola! :)
+            Hola! :)
+            <button onClick={next}> aefaef</button>
         </div>
     )
 }
