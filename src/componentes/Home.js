@@ -10,9 +10,11 @@ import { IoIosHappy } from "react-icons/io";
 import { FaRegCopyright } from "react-icons/fa";
 import { GoDotFill } from "react-icons/go";
 import DarkThemeSwitcher from "./DarkThemeSwitcher";
-import Swal from 'sweetalert2'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function Home() {
+    const [isDark, setDark] = useState();
+
     const [toggle, setToggle] = useState("TAB_inicio")
     const opciones = [{
         id: "TAB_inicio",
@@ -34,7 +36,7 @@ function Home() {
         descripcion: "detalles importantes",
         icon: <FaBookOpen />,
         next: next,
-        contenido: <Descripcion />,
+        contenido: <Descripcion invalid={invalidRequired} />,
         botonSiguiente: "Siguiente"
     },
     {
@@ -63,6 +65,9 @@ function Home() {
 
     const [visibles] = useState([opciones[0]]);
     function next(ev, actual) {
+
+
+
         ev.preventDefault();
         setToggle(actual.siguiente);
         opciones.forEach((opcion) => {
@@ -74,44 +79,52 @@ function Home() {
             }
         });
     }
+    function invalidRequired(e) {
+        //onInvalid={e => invalid(e)} onInput={e => e.target.setCustomValidity('')} AÑADIR ESTO A LOS CAMPSO NECESARIOS
+        toast.error("Algunos campos son obligatorios!", {
+            position: "top-right",
+        });
 
+        e.target.setCustomValidity("Rellena este campo por favor :(")
+    }
     return (
-        <div className="App min-h-[100vh] gap-3 grid grid-cols-12 p-5  dark:bg-slate-900">
-            <aside className='h-fit col-span-12 pb-10  md:col-span-4 lg:col-span-2  bg-slate-800 text-start border-b-2 md:border-l-2 border-cyan-500'>
-                <ul className='p-5 text-white font-semibold grid grid-cols-2 md:grid-cols-1 gap-3 md:space-x-5'>
+        <div className=" App min-h-[100vh] gap-3 grid grid-cols-12 p-5 bg-oraneg bg-gray-200 dark:bg-slate-900">
+            <div className="absolute"> <ToastContainer draggable theme={isDark ? "dark" : "colored"}  /></div>
+            <aside className='h-fit  col-span-12 pb-10  md:col-span-4 lg:col-span-2  shadow-xl bg-gray-100 rounded dark:bg-slate-800 text-start border-t-2 dark:border-t-0 dark:border-b-2 md:border-l-2 border-orange-400 dark:border-cyan-500'>
+                <ul className='p-5 text-black dark:text-white font-semibold grid grid-cols-2 md:grid-cols-1 gap-3 md:space-x-5'>
                     {visibles.map((opcion) => (
-                        <li id={opcion.id} key={opcion.id} className="flex flex-row bg-slate-700 rounded  md:bg-transparent  md:p-0 p-3 cursor-pointer mt-1" onClick={() => setToggle(opcion.id)}>
-                            <span className='text-xl mr-2'> {opcion.icon} </span>
+                        <li id={opcion.id} key={opcion.id} className="flex flex-row bg-gray-100 dark:bg-slate-700 rounded  md:bg-transparent  md:p-0 p-3 cursor-pointer mt-1" onClick={() => setToggle(opcion.id)}>
+                            <span className='text-xl mr-2 dark:text-white text-orange-400'> {opcion.icon} </span>
                             <span>  {opcion.texto} </span>
-                            {toggle === opcion.id && <span className="flex text-[10px] items-center ml-3 animate-ping text-cyan-400"> <GoDotFill /> </span>}
+                            {toggle === opcion.id && <span className="flex text-[10px] items-center ml-3 animate-ping text-orange-400 dark:text-cyan-400"> <GoDotFill /> </span>}
                         </li>
                     ))}
                 </ul>
-                <div className="text-cyan-300 px-5 flex items-center gap-3">
+                <div className="text-orange-400 font-semibold dark:text-cyan-300 px-5 flex items-center gap-3">
                     <FaRegCopyright />
                     2017 Dit Gestion.
                 </div>
             </aside>
-            <section className='h-full  col-span-12 md:col-span-8 lg:col-span-10  bg-slate-800 p-5'>
-                <DarkThemeSwitcher />
+            <section className='h-full col-span-12 md:col-span-8 lg:col-span-10 border-b-2 border-orange-400 dark:border-0  shadow-xl bg-gray-100 rounded dark:bg-slate-800 p-5'>
+                <DarkThemeSwitcher isDark={isDark} setDark={setDark} />
 
                 {opciones.map((opcion) => (
                     <div key={opcion.id} className={toggle === opcion.id ? "show-content" : "hide"}>
-                        <div className='border-b text-left border-cyan-400 w-full pb-5 mb-4'>
-                            <h2 className='text-2xl font-semibold text-white'>
+                        <div className='border-b-2  text-left  border-orange-400 dark:border-cyan-400 w-full pb-5 mb-4'>
+                            <h2 className='text-2xl font-semibold text-black dark:text-white'>
                                 {opcion.descripcionTitulo}
                             </h2>
-                            <span className='text-white'>
+                            <span className='text-black dark:text-white'>
                                 {opcion.descripcion}
                             </span>
                         </div>
                         <form onSubmit={(ev) => opcion.next(ev, opcion)}>
                             {opcion.contenido}
                             <div className='mt-3 flex justify-end w-full gap-3'>
-                                <button type="submit" className='bg-cyan-500 hover:bg-cyan-600 text-white font-semibold p-4 rounded' >
+                                <button type="submit" className='bg-orange-400 hover:bg-orange-500 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-white font-semibold p-4 rounded' >
                                     {opcion.botonSiguiente}
                                 </button>
-                                {visibles.length === opciones.length && <button type="button" className='bg-cyan-500 hover:bg-cyan-600 text-white font-semibold p-4 rounded' >
+                                {visibles.length === opciones.length && <button type="button" className='bg-orange-400 transition hover:bg-orange-500 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-white font-semibold p-4 rounded' >
                                     Cerrar
                                 </button>}
                             </div>

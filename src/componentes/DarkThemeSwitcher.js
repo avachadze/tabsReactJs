@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { FaCloudMoon } from "react-icons/fa";
 import { FaCloudSun } from "react-icons/fa";
-function DarkThemeSwitcher() {
+function DarkThemeSwitcher({ isDark, setDark }) {
 
-    const [isDark, setDark] = useState();
     let color = localStorage.getItem("theme");
 
     useEffect(() => {
@@ -14,7 +13,7 @@ function DarkThemeSwitcher() {
         }
         document.body.classList.add(color);
 
-    }, [color]);
+    }, [color, setDark]);
     const darkModeHandler = () => {
         if (document.body.classList.contains("dark")) {
             localStorage.setItem("theme", "light");
@@ -27,7 +26,7 @@ function DarkThemeSwitcher() {
         }
     }
     return (
-        <span onClick={() => darkModeHandler()} className="text-white hover:text-cyan-400 transition cursor-pointer bg-slate-700 p-2 rounded-full float-right text-2xl">
+        <span onClick={() => darkModeHandler()} className="text-white dark:hover:text-cyan-400 transition cursor-pointer dark:bg-slate-700 bg-orange-400 hover:bg-orange-500 p-2 rounded-full float-right text-2xl">
             {isDark ? <FaCloudSun /> : <FaCloudMoon />}
         </span>
     )

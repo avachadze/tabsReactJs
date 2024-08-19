@@ -1,9 +1,8 @@
 import React from 'react'
 
 function Inicio() {
-
     return (
-        <div className='text-start text-white'>
+        <div className='text-start dark:text-white'>
                 Hola! :)
         </div>
     )
