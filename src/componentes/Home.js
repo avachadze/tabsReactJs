@@ -12,8 +12,11 @@ import { GoDotFill } from "react-icons/go";
 import DarkThemeSwitcher from "./DarkThemeSwitcher";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useForm, SubmitHandler } from "react-hook-form"
+
 
 function Home() {
+    
     const [isDark, setDark] = useState() //Variable para mirar en que tema estoy
     const [toggle, setToggle] = useState("TAB_inicio") //Variable para mostrar siguiente componente
     const opciones = [ //todas las opciones de los compoentes
