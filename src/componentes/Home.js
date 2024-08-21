@@ -10,15 +10,11 @@ import { IoIosHappy } from "react-icons/io";
 import { FaRegCopyright } from "react-icons/fa";
 import { GoDotFill } from "react-icons/go";
 import DarkThemeSwitcher from "./DarkThemeSwitcher";
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useForm, SubmitHandler } from "react-hook-form"
-
-
 function Home() {
-    
     const [isDark, setDark] = useState() //Variable para mirar en que tema estoy
     const [toggle, setToggle] = useState("TAB_inicio") //Variable para mostrar siguiente componente
+
     const opciones = [ //todas las opciones de los compoentes
         {
             id: "TAB_inicio",
@@ -26,10 +22,9 @@ function Home() {
             siguiente: "TAB_prueba",
             descripcionTitulo: "Bienvenido al programa de carga de Viajes",
             descripcion: "Selecciona lo que quieras hacer",
-            finished: " ",
             icon: <FaCheckCircle />,
             next: next,
-            contenido: <Inicio next={next} />,
+            contenido: <Inicio buscar={buscar} next={next} actual={"TAB_inicio"} />,
             botonSiguiente: "Nuevo Viaje",
         },
         {
@@ -40,7 +35,7 @@ function Home() {
             descripcion: "detalles importantes",
             icon: <FaBookOpen />,
             next: next,
-            contenido: <Descripcion next={next} invalid={invalid} />,
+            contenido: <Descripcion  buscar={buscar} isDark={isDark} next={next} actual={"TAB_descripcion"} />,
             botonSiguiente: "Siguiente",
         },
         {
@@ -51,7 +46,7 @@ function Home() {
             descripcion: "Si el servicio no está seleccionado, el cliente lo verá como no incluido.",
             icon: <FaCheckDouble />,
             next: next,
-            contenido: <Incluido />,
+            contenido: <Incluido  buscar={buscar} next={next} actual={"TAB_incluido"} />,
             botonSiguiente: "Siguiente",
         },
         {
@@ -62,13 +57,23 @@ function Home() {
             descripcion: "Esta es la seccion de prueba",
             icon: <IoIosHappy />,
             next: next,
-            contenido: <Prueba />,
+            contenido: <Prueba  buscar={buscar} next={next} actual={"TAB_prueba"} />,
             botonSiguiente: "Boton prueba",
-        }
+        },
+
     ]
+    function buscar(opcion_actual) {
+        let encontrado;
+        opciones.forEach((opcion) => {
+            if (opcion.id === opcion_actual) {
+                encontrado = opcion;
+            }
+        });
+        return encontrado;
+    }
+
     const [visibles] = useState([opciones[0]]);  //la lista de ASIDE
-    function next(ev, actual) {
-        ev.preventDefault();
+    function next(actual) {
         setToggle(actual.siguiente); //Mostrar siguiente componente 
         opciones.forEach((opcion) => {
             if (opcion.id === actual.siguiente) {
@@ -79,30 +84,9 @@ function Home() {
             }
         });
     }
-    function invalid(e) {//VALIDACION PERSONALIZADA
-
-        var idVal = e.target.id; //ID del input
-        let labels = document.getElementsByTagName('label'); //todos los labels00
-        let labelText;
-        for (var i = 0; i < labels.length; i++) { //buscar el label que corresponde al input que inicia la funcion
-            if (labels[i].htmlFor === idVal)
-                labelText = labels[i].innerHTML //asignar el texto que esta dentro de label al variable vacio para luego mostrar en el alert.
-        }
-        //- - - - - -   onInvalid={e => invalid(e)} onInput={e => e.target.setCustomValidity('')}  < - - - - - - Para los campos necesarios 
-        if (e.target.validity.valueMissing) { //si tiene de atributo required y esta vacio
-            toast.error(<div><span className="font-semibold text-white dark:text-red-400"> Campo: {labelText} </span><br /> Campo obligatorio</div>, {
-                position: "top-right",
-            });
-            e.target.setCustomValidity("Rellena este campo por favor :(")
-        } else if (e.target.validity.tooShort) { //si tiene de atributo minLength y no llega a los caracteres minimos
-            toast.info(<div><span className="font-semibold text-white dark:text-blue-400"> Campo: {labelText}</span><br /> Demasiado corto</div>, {
-                position: "top-right",
-            });
-        }
-    }
+  
     return (
         <div className=" App min-h-[100vh] gap-3 flex flex-col md:grid md:grid-cols-12 p-5 bg-oraneg bg-gray-200 dark:bg-slate-900">
-            <div className="absolute"> <ToastContainer draggable theme={isDark ? "dark" : "colored"} /></div>
             <aside className='col-span-12 pb-10 bg-gray-100 border-t-2 border-orange-400 rounded shadow-xl h-fit md:col-span-4 lg:col-span-2 dark:bg-slate-800 text-start dark:border-t-0 dark:border-b-2 md:border-l-2 dark:border-cyan-500'>
                 <ul className='grid grid-cols-2 gap-3 p-5 font-semibold text-black dark:text-white md:grid-cols-1 md:space-x-5'>
                     {visibles.map((opcion) => (
@@ -130,7 +114,11 @@ function Home() {
                                 {opcion.descripcion}
                             </span>
                         </div>
-                        <form onSubmit={(ev) => opcion.next(ev, opcion)}>
+                        <div>
+                            {opcion.contenido}
+                        </div>
+                        {/* onSubmit={handleSubmit(data => onSubmit(data, opcion))}  */}
+                        {/*  <form onSubmit={(ev) => opcion.next(ev, opcion)}>
                             {opcion.contenido}
                             <div className='flex justify-end w-full gap-3 mt-3'>
                                 <button type="submit" className='p-4 font-semibold text-white bg-orange-400 rounded hover:bg-orange-500 dark:bg-cyan-500 dark:hover:bg-cyan-600 dark:text-white' >
@@ -140,7 +128,7 @@ function Home() {
                                     Cerrar
                                 </button>}
                             </div>
-                        </form>
+                        </form> */}
                     </div>
                 ))}
             </section>
