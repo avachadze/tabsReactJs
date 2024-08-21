@@ -10,7 +10,8 @@ import { IoIosHappy } from "react-icons/io";
 import { FaRegCopyright } from "react-icons/fa";
 import { GoDotFill } from "react-icons/go";
 import DarkThemeSwitcher from "./DarkThemeSwitcher";
-import 'react-toastify/dist/ReactToastify.css';
+
+
 function Home() {
     const [isDark, setDark] = useState() //Variable para mirar en que tema estoy
     const [toggle, setToggle] = useState("TAB_inicio") //Variable para mostrar siguiente componente
@@ -19,7 +20,7 @@ function Home() {
         {
             id: "TAB_inicio",
             texto: "Inicio",
-            siguiente: "TAB_prueba",
+            siguiente: "TAB_descripcion",
             descripcionTitulo: "Bienvenido al programa de carga de Viajes",
             descripcion: "Selecciona lo que quieras hacer",
             icon: <FaCheckCircle />,
@@ -30,50 +31,53 @@ function Home() {
         {
             id: "TAB_descripcion",
             texto: "Descripción",
-            siguiente: "TAB_incluido",
+            siguiente: "TAB_prueba",
             descripcionTitulo: "Descripcion",
             descripcion: "detalles importantes",
             icon: <FaBookOpen />,
             next: next,
-            contenido: <Descripcion  buscar={buscar} isDark={isDark} next={next} actual={"TAB_descripcion"} />,
+            contenido: <Descripcion buscar={buscar} isDark={isDark} next={next} actual={"TAB_descripcion"} />,
             botonSiguiente: "Siguiente",
         },
         {
             id: "TAB_incluido",
             texto: "Incluido / no",
-            siguiente: "TAB_prueba",
+            siguiente: "TAB_descripcion",
             descripcionTitulo: "Incluido/ No incluido",
             descripcion: "Si el servicio no está seleccionado, el cliente lo verá como no incluido.",
             icon: <FaCheckDouble />,
             next: next,
-            contenido: <Incluido  buscar={buscar} next={next} actual={"TAB_incluido"} />,
+            contenido: <Incluido buscar={buscar} next={next} actual={"TAB_incluido"} />,
             botonSiguiente: "Siguiente",
         },
         {
             id: "TAB_prueba",
             texto: "Prueba",
-            siguiente: "TAB_descripcion",
+            siguiente: "TAB_incluido",
             descripcionTitulo: "Prueba",
             descripcion: "Esta es la seccion de prueba",
             icon: <IoIosHappy />,
             next: next,
-            contenido: <Prueba  buscar={buscar} next={next} actual={"TAB_prueba"} />,
+            contenido: <Prueba buscar={buscar} next={next} actual={"TAB_prueba"} />,
             botonSiguiente: "Boton prueba",
         },
 
     ]
-    function buscar(opcion_actual) {
+    function buscar(opcion_actual) { //buscar objeto/componente actual
         let encontrado;
         opciones.forEach((opcion) => {
             if (opcion.id === opcion_actual) {
                 encontrado = opcion;
             }
         });
-        return encontrado;
+        return encontrado; //retornar objeto actual
     }
 
     const [visibles] = useState([opciones[0]]);  //la lista de ASIDE
+
     function next(actual) {
+        
+    
         setToggle(actual.siguiente); //Mostrar siguiente componente 
         opciones.forEach((opcion) => {
             if (opcion.id === actual.siguiente) {
@@ -84,9 +88,10 @@ function Home() {
             }
         });
     }
-  
+
     return (
         <div className=" App min-h-[100vh] gap-3 flex flex-col md:grid md:grid-cols-12 p-5 bg-oraneg bg-gray-200 dark:bg-slate-900">
+
             <aside className='col-span-12 pb-10 bg-gray-100 border-t-2 border-orange-400 rounded shadow-xl h-fit md:col-span-4 lg:col-span-2 dark:bg-slate-800 text-start dark:border-t-0 dark:border-b-2 md:border-l-2 dark:border-cyan-500'>
                 <ul className='grid grid-cols-2 gap-3 p-5 font-semibold text-black dark:text-white md:grid-cols-1 md:space-x-5'>
                     {visibles.map((opcion) => (
