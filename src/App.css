@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+
 }
 
 .App-logo {
@@ -37,8 +38,36 @@
   }
 }
 .background{
-
   background-image: url("logo.svg");
   background-size: 30px;
   background-repeat: repeat;
+  color: #5a88dd;
+}
+.fc-daygrid-event-harness{
+  display: inline-grid;
+  margin: 5px;
+  
+}
+
+.fc-event{
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.fc-event::after{
+  content: "€";
+  color: white;
+}
+#fc-dom-86{
+  display: none;
+}
+.fc-header-toolbar {
+  display: flex;
+  justify-content: start !important;
+}
+.fc-event-title{
+  font-size:0.8rem;
 }

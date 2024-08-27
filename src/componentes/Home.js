@@ -14,41 +14,38 @@ import DarkThemeSwitcher from "./DarkThemeSwitcher";
 
 function Home() {
     const [isDark, setDark] = useState() //Variable para mirar en que tema estoy
-    const [toggle, setToggle] = useState("TAB_inicio") //Variable para mostrar siguiente componente
+    const [toggle, setToggle] = useState("TAB_prueba") //Variable para mostrar siguiente componente
 
-    const opciones = [ //todas las opciones de los compoentes
+    const opciones = [
         {
-            id: "TAB_inicio",
-            texto: "Inicio",
-            siguiente: "TAB_descripcion",
-            descripcionTitulo: "Bienvenido al programa de carga de Viajes",
-            descripcion: "Selecciona lo que quieras hacer",
-            icon: <FaCheckCircle />,
-            next: next,
-            contenido: <Inicio buscar={buscar} next={next} actual={"TAB_inicio"} />,
-            botonSiguiente: "Nuevo Viaje",
+            id: "TAB_inicio",//ID de componente actual
+            texto: "Inicio", //texto lista de componente 
+            siguiente: "TAB_descripcion", //ID de siguiente componente
+            descripcionTitulo: "Bienvenido al programa de carga de Viajes", //titulo dentro de componente
+            descripcion: "Selecciona lo que quieras hacer", //descripción de titulo
+            icon: <FaCheckCircle />, //icono de la lista
+            next: next, //funcioón para basar al siguiente
+            contenido: <Inicio buscar={buscar} next={next} actual={"TAB_inicio"} />, //componente a mostrar
         },
         {
             id: "TAB_descripcion",
             texto: "Descripción",
-            siguiente: "TAB_prueba",
+            siguiente: "TAB_incluido",
             descripcionTitulo: "Descripcion",
             descripcion: "detalles importantes",
             icon: <FaBookOpen />,
             next: next,
-            contenido: <Descripcion buscar={buscar} isDark={isDark} next={next} actual={"TAB_descripcion"} />,
-            botonSiguiente: "Siguiente",
+            contenido: <Descripcion buscar={buscar} next={next} actual={"TAB_descripcion"} isDark={isDark} />,
         },
         {
             id: "TAB_incluido",
             texto: "Incluido / no",
-            siguiente: "TAB_descripcion",
+            siguiente: "TAB_prueba",
             descripcionTitulo: "Incluido/ No incluido",
             descripcion: "Si el servicio no está seleccionado, el cliente lo verá como no incluido.",
             icon: <FaCheckDouble />,
             next: next,
-            contenido: <Incluido buscar={buscar} next={next} actual={"TAB_incluido"} />,
-            botonSiguiente: "Siguiente",
+            contenido: <Incluido buscar={buscar} next={next} actual={"TAB_incluido"} isDark={isDark} />,
         },
         {
             id: "TAB_prueba",
@@ -58,31 +55,27 @@ function Home() {
             descripcion: "Esta es la seccion de prueba",
             icon: <IoIosHappy />,
             next: next,
-            contenido: <Prueba buscar={buscar} next={next} actual={"TAB_prueba"} />,
-            botonSiguiente: "Boton prueba",
+            contenido: <Prueba buscar={buscar} next={next} actual={"TAB_prueba"} isDark={isDark} />,
         },
-
     ]
+    let encontrado;
     function buscar(opcion_actual) { //buscar objeto/componente actual
-        let encontrado;
         opciones.forEach((opcion) => {
             if (opcion.id === opcion_actual) {
                 encontrado = opcion;
             }
         });
-        return encontrado; //retornar objeto actual
+        return encontrado; //retornar objeto actual ej:[opcion0] para que el componente tenga acceso a los datos del mismo.
     }
 
-    const [visibles] = useState([opciones[0]]);  //la lista de ASIDE
+    const [visibles] = useState([opciones[0]]);  //la lista de los titulos que podemos mostrar en el aside, empieza por la primera en lista (0)
 
     function next(actual) {
-        
-    
-        setToggle(actual.siguiente); //Mostrar siguiente componente 
+        setToggle(actual.siguiente); //Mostrar siguiente componente añadiendo
         opciones.forEach((opcion) => {
-            if (opcion.id === actual.siguiente) {
-                const exists = visibles.some((visible) => visible.id === opcion.id);
-                if (!exists) { //si no existe añadir a la lista para mostrar en el aside.
+            if (opcion.id === actual.siguiente) { //buscar en la lista de opciones el ID del siguiente componente
+                const exists = visibles.some((visible) => visible.id === opcion.id); //mirar si ya esta añdido a la lista de visibles
+                if (!exists) { //si no existe en la lista(visibles), añadir a la lista (visibles) para mostrar en el aside.
                     visibles.push(opcion)
                 }
             }
@@ -91,7 +84,6 @@ function Home() {
 
     return (
         <div className=" App min-h-[100vh] gap-3 flex flex-col md:grid md:grid-cols-12 p-5 bg-oraneg bg-gray-200 dark:bg-slate-900">
-
             <aside className='col-span-12 pb-10 bg-gray-100 border-t-2 border-orange-400 rounded shadow-xl h-fit md:col-span-4 lg:col-span-2 dark:bg-slate-800 text-start dark:border-t-0 dark:border-b-2 md:border-l-2 dark:border-cyan-500'>
                 <ul className='grid grid-cols-2 gap-3 p-5 font-semibold text-black dark:text-white md:grid-cols-1 md:space-x-5'>
                     {visibles.map((opcion) => (
@@ -102,9 +94,9 @@ function Home() {
                         </li>
                     ))}
                 </ul>
-                <div className="flex items-center gap-3 px-5 font-semibold text-orange-400 dark:text-cyan-300">
+                <div className="flex items-center gap-2 px-5 font-semibold text-orange-400 dark:text-cyan-300">
                     <FaRegCopyright />
-                    2024 Dit Gestion.
+                    2024 Dit Gestion
                 </div>
             </aside>
             <section className='col-span-12 p-5 bg-gray-100 border-b-2 border-orange-400 rounded shadow-xl md:col-span-8 lg:col-span-10 dark:border-0 dark:bg-slate-800'>
@@ -120,20 +112,9 @@ function Home() {
                             </span>
                         </div>
                         <div>
+                           
                             {opcion.contenido}
                         </div>
-                        {/* onSubmit={handleSubmit(data => onSubmit(data, opcion))}  */}
-                        {/*  <form onSubmit={(ev) => opcion.next(ev, opcion)}>
-                            {opcion.contenido}
-                            <div className='flex justify-end w-full gap-3 mt-3'>
-                                <button type="submit" className='p-4 font-semibold text-white bg-orange-400 rounded hover:bg-orange-500 dark:bg-cyan-500 dark:hover:bg-cyan-600 dark:text-white' >
-                                    {opcion.botonSiguiente}
-                                </button>
-                                {visibles.length === opciones.length && <button type="button" className='p-4 font-semibold text-white transition bg-orange-400 rounded hover:bg-orange-500 dark:bg-cyan-500 dark:hover:bg-cyan-600 dark:text-white' >
-                                    Cerrar
-                                </button>}
-                            </div>
-                        </form> */}
                     </div>
                 ))}
             </section>
