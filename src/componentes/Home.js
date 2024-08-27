@@ -69,7 +69,6 @@ function Home() {
     }
 
     const [visibles] = useState([opciones[0]]);  //la lista de los titulos que podemos mostrar en el aside, empieza por la primera en lista (0)
-
     function next(actual) {
         setToggle(actual.siguiente); //Mostrar siguiente componente añadiendo
         opciones.forEach((opcion) => {
@@ -81,10 +80,9 @@ function Home() {
             }
         });
     }
-
     return (
         <div className=" App min-h-[100vh] gap-3 flex flex-col md:grid md:grid-cols-12 p-5 bg-oraneg bg-gray-200 dark:bg-slate-900">
-            <aside className='col-span-12 pb-10 bg-gray-100 border-t-2 border-orange-400 rounded shadow-xl h-fit md:col-span-4 lg:col-span-2 dark:bg-slate-800 text-start dark:border-t-0 dark:border-b-2 md:border-l-2 dark:border-cyan-500'>
+            <aside className='sticky top-4 col-span-12 pb-10 bg-gray-100 border-t-2 border-orange-400 rounded shadow-xl h-fit md:col-span-4 lg:col-span-2 dark:bg-slate-800 text-start dark:border-t-0 dark:border-b-2 md:border-l-2 dark:border-cyan-500'>
                 <ul className='grid grid-cols-2 gap-3 p-5 font-semibold text-black dark:text-white md:grid-cols-1 md:space-x-5'>
                     {visibles.map((opcion) => (
                         <li id={opcion.id} key={opcion.id} className="flex flex-row p-3 mt-1 bg-gray-200 rounded cursor-pointer md:bg-gray-100 dark:bg-slate-700 dark:md:bg-slate-800 md:bg-transparent md:p-0" onClick={() => setToggle(opcion.id)}>
@@ -112,7 +110,7 @@ function Home() {
                             </span>
                         </div>
                         <div>
-                           
+
                             {opcion.contenido}
                         </div>
                     </div>

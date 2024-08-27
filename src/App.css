@@ -45,13 +45,12 @@
 }
 .fc-daygrid-event-harness{
   display: inline-grid;
-  margin: 5px;
-  
+  margin: 5px; 
 }
-
 .fc-event{
-  width: 40px;
-  height: 40px;
+  width: fit-content;
+  padding-left:5px;
+  padding-right:5px;
   border-radius: 50px;
   display: flex;
   justify-content: center;
@@ -70,4 +69,7 @@
 }
 .fc-event-title{
   font-size:0.8rem;
+}
+.hide {
+  display: none;
 }
