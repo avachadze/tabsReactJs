@@ -3,11 +3,9 @@ import React from 'react'
 function FormularioModificarPrecios({ handleSubmit, onEdit, buscar, actual, register }) {
     return (
         <div>
-            <div className='w-full my-6 p-5 rounded font-bold border-x-2 border-t-2 bg-slate-100 border-b-2 dark:border-b-0 border-orange-400 text-orange-400 dark:bg-slate-700 dark:border-cyan-400 dark:text-cyan-400 mb-10 '>
-                MODIFICACIONES
-            </div>
-            <form key={2} className='mt-5 ' onSubmit={handleSubmit(data => onEdit(data, buscar(actual)))}>
-                <div id="date-range-picker" date-rangepicker="true" className="grid grid-cols-1  md:grid-cols-1 lg:grid-cols-6  flex-row items-center ">
+
+            <form key={2} className='mt-5 ' onSubmit={handleSubmit(data => onEdit(data))}>
+                <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-6 flex-row items-center ">
                     <div className="relative ">
                         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                             <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -16,7 +14,7 @@ function FormularioModificarPrecios({ handleSubmit, onEdit, buscar, actual, regi
                         </div>
                         <input {...register("fecha_inicio_edit")} type="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start" />
                     </div>
-                    <span className="mx-4 text-gray-500 flex justify-center"> a </span>
+                    <span className="mx-4 text-gray-500 flex justify-center">a</span>
                     <div className="relative ">
                         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                             <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -29,15 +27,15 @@ function FormularioModificarPrecios({ handleSubmit, onEdit, buscar, actual, regi
                 <div className='grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-5 mt-3'>
                     <div>
                         <label htmlFor="precio_doble" className="text-start block mb-2 text-sm font-medium text-gray-900 dark:text-white">Precio individual</label>
-                        <input {...register("precio_individual_incr")} type="number" id="precio_individual_incr" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cantidad a incrementar" />
+                        <input {...register("precio_individual_incr")} type="number" id="precio_individual_incr" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Porcentaje %" />
                     </div>
                     <div>
                         <label htmlFor="precio_doble" className="text-start block mb-2 text-sm font-medium text-gray-900 dark:text-white">Precio habitacion doble</label>
-                        <input {...register("precio_doble_incr")} type="number" id="precio_doble_incr" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cantidad a incrementar" />
+                        <input {...register("precio_doble_incr")} type="number" id="precio_doble_incr" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Porcentaje %" />
                     </div>
                     <div>
                         <label htmlFor="precio_doble" className="text-start block mb-2 text-sm font-medium text-gray-900 dark:text-white">Precio habitacion triple</label>
-                        <input {...register("precio_triple_incr")} type="number" id="precio_triple_incr" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cantidad a incrementar" />
+                        <input {...register("precio_triple_incr")} type="number" id="precio_triple_incr" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Porcentaje %" />
                     </div>
                 </div>
                 <div className='flex justify-start w-full gap-3 mt-3'>

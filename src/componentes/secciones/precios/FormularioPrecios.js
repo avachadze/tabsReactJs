@@ -2,8 +2,8 @@ import React from 'react'
 
 function FormularioPrecios({ handleSubmit, onSubmit, buscar, actual, register }) {
     return (
-        <form key={1} onSubmit={handleSubmit(data => onSubmit(data, buscar(actual)))} className='mb-10'>
-           <div id="date-range-picker" date-rangepicker="true" className="grid grid-cols-1  md:grid-cols-1 lg:grid-cols-6  flex-row items-center ">
+        <form key={1} onSubmit={handleSubmit(data => onSubmit(data))} className='mb-10'>
+            <div id="date-range-picker"  className="grid grid-cols-1  md:grid-cols-1 lg:grid-cols-6  flex-row items-center ">
                 <div className="relative ">
                     <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                         <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">

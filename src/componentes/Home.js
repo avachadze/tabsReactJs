@@ -51,7 +51,7 @@ function Home() {
             id: "TAB_prueba",
             texto: "Prueba",
             siguiente: "TAB_incluido",
-            descripcionTitulo: "Prueba",
+            descripcionTitulo: "Calendario de precios",
             descripcion: "Esta es la seccion de prueba",
             icon: <IoIosHappy />,
             next: next,
@@ -67,7 +67,6 @@ function Home() {
         });
         return encontrado; //retornar objeto actual ej:[opcion0] para que el componente tenga acceso a los datos del mismo.
     }
-
     const [visibles] = useState([opciones[0]]);  //la lista de los titulos que podemos mostrar en el aside, empieza por la primera en lista (0)
     function next(actual) {
         setToggle(actual.siguiente); //Mostrar siguiente componente añadiendo
@@ -110,7 +109,6 @@ function Home() {
                             </span>
                         </div>
                         <div>
-
                             {opcion.contenido}
                         </div>
                     </div>
