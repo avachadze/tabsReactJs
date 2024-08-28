@@ -10,34 +10,8 @@ import DeshabilitarFechas from './precios/DeshabilitarFechas';
 
 function Prueba({ buscar, actual, next, isDark }) {
   const [eventos, setEventos] = useState([
-    {
-      title: 500, date: '2024-08-01', color: '#2cabce', tipoHabitacion: 'triple'
-    },
-    {
-      title: 250, date: '2024-08-02', color: 'hotpink', tipoHabitacion: 'doble'
-    },
-    {
-      groupId: "",
-      startRecur: "2024-08-15",
-      endRecur: "2024-08-26",
-      color: '#2cabce',
-      eventBorderColor: "white",
-      title: 500,
-    },
-    {
-      groupId: "",
-      startRecur: "2024-08-15",
-      endRecur: "2024-08-26",
-      color: 'hotpink',
-      title: 300
-    },
-    {
-      groupId: "",
-      startRecur: "2024-08-15",
-      endRecur: "2024-08-26",
-      color: '#5a88dd',
-      title: 100
-    }
+
+ 
   ]);
 
   const { register, handleSubmit, watch } = useForm()
@@ -109,7 +83,6 @@ function Prueba({ buscar, actual, next, isDark }) {
             numero = numero + (numero * individual)
           } else if (data.tipoCambio === "cantidad") {
             individual = parseInt(individual)
-
             numero = numero + individual;
           }
           eventos[i].setProp("title", numero)
@@ -119,7 +92,6 @@ function Prueba({ buscar, actual, next, isDark }) {
             numero = numero + (numero * doble)
           } else if (data.tipoCambio === "cantidad") {
             doble = parseInt(doble)
-
             numero = numero + doble;
           }
           eventos[i].setProp("title", numero)
@@ -129,12 +101,10 @@ function Prueba({ buscar, actual, next, isDark }) {
             numero = numero + (numero * triple)
           } else if (data.tipoCambio === "cantidad") {
             triple = parseInt(triple)
-
             numero = numero + triple;
           }
           eventos[i].setProp("title", numero)
         }
-        //eventos[i].setProp("classNames", "")
       }
     }
   };
@@ -150,32 +120,24 @@ function Prueba({ buscar, actual, next, isDark }) {
         eventos = getEventsBetweenDates(startDate, endDate);
       }
       for (let i = 0; i < eventos.length; i++) {
-        if (eventos[i].extendedProps.tipoHabitacion === "individual" && tipoHabitacion === "individual") {
-          if (eventos[i].classNames === "hide") {
-            console.log("esta oculto")
-
-            eventos[i].setProp("classNames", "")
-          } else {
+        if (eventos[i].extendedProps.tipoHabitacion === "individual") {
+          if (tipoHabitacion === "individual_deshabilitar") {
             eventos[i].setProp("classNames", "hide")
-          }
-
-        } else if (eventos[i].extendedProps.tipoHabitacion === "doble" && tipoHabitacion === "doble") {
-          if (eventos[i].classNames === "hide") {
-            console.log("esta oculto")
+          } else if (tipoHabitacion === "individual_habilitar") {
             eventos[i].setProp("classNames", "")
-          } else {
-            eventos[i].setProp("classNames", "hide")
           }
-
-        } else if (eventos[i].extendedProps.tipoHabitacion === "triple" && tipoHabitacion === "triple") {
-          if (eventos[i].classNames === "hide") {
-            console.log("esta oculto")
+        } else if (eventos[i].extendedProps.tipoHabitacion === "doble") {
+          if (tipoHabitacion === "doble_deshabilitar") {
+            eventos[i].setProp("classNames", "hide")
+          } else if (tipoHabitacion === "doble_habilitar") {
             eventos[i].setProp("classNames", "")
-          } else {
-            eventos[i].setProp("classNames", "hide")
           }
-
-
+        } else if (eventos[i].extendedProps.tipoHabitacion === "triple") {
+          if (tipoHabitacion === "triple_deshabilitar") {
+            eventos[i].setProp("classNames", "hide")
+          } else if (tipoHabitacion === "triple_habilitar") {
+            eventos[i].setProp("classNames", "")
+          }
         }
       }
     }
