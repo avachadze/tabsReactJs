@@ -15,7 +15,6 @@ function Prueba({ buscar, actual, next, isDark }) {
     },
     {
       title: 250, date: '2024-08-02', color: 'hotpink', tipoHabitacion: 'doble'
-
     },
     {
       groupId: "",
@@ -41,7 +40,7 @@ function Prueba({ buscar, actual, next, isDark }) {
     }
   ]);
 
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit, watch } = useForm()
 
   //Registrar precios
   const onSubmit = (data, obj) => {
@@ -78,12 +77,20 @@ function Prueba({ buscar, actual, next, isDark }) {
 
   //Modificaciones de precio
   const onEdit = (data, obj) => {
+
+
     let individual = data.precio_individual_incr;
     let doble = data.precio_doble_incr;
     let triple = data.precio_triple_incr;
-    individual = individual / 100;
-    doble = doble / 100;
-    triple = triple / 100;
+    console.log(data.tipoCambio)
+
+    if (data.tipoCambio === "porcentaje") {
+      individual = individual / 100;
+      doble = doble / 100;
+      triple = triple / 100;
+
+    }
+
 
     let eventos;
     if (data.fecha_inicio_edit) {
@@ -98,15 +105,33 @@ function Prueba({ buscar, actual, next, isDark }) {
         let numero = eventos[i]._def.title;
         numero = parseInt(numero)
         if (eventos[i].extendedProps.tipoHabitacion === "individual") {
-          numero = numero + (numero * individual)
+          if (data.tipoCambio === "porcentaje") {
+            numero = numero + (numero * individual)
+          } else if (data.tipoCambio === "cantidad") {
+            individual = parseInt(individual)
+
+            numero = numero + individual;
+          }
           eventos[i].setProp("title", numero)
 
         } else if (eventos[i].extendedProps.tipoHabitacion === "doble") {
-          numero = numero + (numero * doble)
+          if (data.tipoCambio === "porcentaje") {
+            numero = numero + (numero * doble)
+          } else if (data.tipoCambio === "cantidad") {
+            doble = parseInt(doble)
+
+            numero = numero + doble;
+          }
           eventos[i].setProp("title", numero)
 
         } else if (eventos[i].extendedProps.tipoHabitacion === "triple") {
-          numero = numero + (numero * triple)
+          if (data.tipoCambio === "porcentaje") {
+            numero = numero + (numero * triple)
+          } else if (data.tipoCambio === "cantidad") {
+            triple = parseInt(triple)
+
+            numero = numero + triple;
+          }
           eventos[i].setProp("title", numero)
         }
         //eventos[i].setProp("classNames", "")
@@ -130,7 +155,7 @@ function Prueba({ buscar, actual, next, isDark }) {
             console.log("esta oculto")
 
             eventos[i].setProp("classNames", "")
-          } else  {
+          } else {
             eventos[i].setProp("classNames", "hide")
           }
 
@@ -248,7 +273,7 @@ function Prueba({ buscar, actual, next, isDark }) {
       </div>
       <div id="default-styled-tab-content">
         <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="styled-profile" role="tabpanel" aria-labelledby="profile-tab">
-          <FormularioModificarPrecios handleSubmit={handleSubmit} onEdit={onEdit} buscar={buscar} actual={actual} register={register} />
+          <FormularioModificarPrecios handleSubmit={handleSubmit} onEdit={onEdit} buscar={buscar} actual={actual} register={register} watch={watch} />
 
         </div>
         <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="styled-dashboard" role="tabpanel" aria-labelledby="dashboard-tab">

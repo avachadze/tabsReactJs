@@ -1,6 +1,7 @@
 import React from 'react'
 
-function FormularioModificarPrecios({ handleSubmit, onEdit, buscar, actual, register }) {
+function FormularioModificarPrecios({ handleSubmit, onEdit, buscar, actual, register, watch }) {
+    const tipoCambio = watch("tipoCambio");
     return (
         <div>
 
@@ -24,18 +25,50 @@ function FormularioModificarPrecios({ handleSubmit, onEdit, buscar, actual, regi
                         <input {...register("fecha_fin_edit")} type="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date end" />
                     </div>
                 </div>
+
+
+                <div className="w-[250px] mt-5">
+                    <div class="flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700">
+                        <input {...register("tipoCambio")} checked="checked" value={"porcentaje"} id="bordered-radio-2" type="radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                        <label for="bordered-radio-2" class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Porcentaje</label>
+                    </div>
+
+                    <div class="flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700">
+                        <input {...register("tipoCambio")} value={"cantidad"} id="bordered-radio-1" type="radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                        <label for="bordered-radio-1" class="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Cantidad a incrementar</label>
+                    </div>
+                </div>
+
+
                 <div className='grid grid-cols-1  md:grid-cols-2 lg:grid-cols-3 gap-5 mt-3'>
                     <div>
                         <label htmlFor="precio_doble" className="text-start block mb-2 text-sm font-medium text-gray-900 dark:text-white">Precio individual</label>
-                        <input {...register("precio_individual_incr")} type="number" id="precio_individual_incr" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Porcentaje %" />
+                        <input {...register("precio_individual_incr")} type="number" id="precio_individual_incr" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder={tipoCambio === "porcentaje" ? (
+                                "Porcentaje %"
+                            ) :
+                                "Cantidad"
+                            }
+                        />
                     </div>
+
                     <div>
                         <label htmlFor="precio_doble" className="text-start block mb-2 text-sm font-medium text-gray-900 dark:text-white">Precio habitacion doble</label>
-                        <input {...register("precio_doble_incr")} type="number" id="precio_doble_incr" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Porcentaje %" />
+                        <input {...register("precio_doble_incr")} type="number" id="precio_doble_incr" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder={tipoCambio === "porcentaje" ? (
+                                "Porcentaje %"
+                            ) :
+                                "Cantidad"
+                            } />
                     </div>
                     <div>
                         <label htmlFor="precio_doble" className="text-start block mb-2 text-sm font-medium text-gray-900 dark:text-white">Precio habitacion triple</label>
-                        <input {...register("precio_triple_incr")} type="number" id="precio_triple_incr" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Porcentaje %" />
+                        <input {...register("precio_triple_incr")} type="number" id="precio_triple_incr" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder={tipoCambio === "porcentaje" ? (
+                                "Porcentaje %"
+                            ) :
+                                "Cantidad"
+                            } />
                     </div>
                 </div>
                 <div className='flex justify-start w-full gap-3 mt-3'>
