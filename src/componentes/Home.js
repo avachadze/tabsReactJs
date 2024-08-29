@@ -5,7 +5,7 @@ import Descripcion from "./secciones/Descripcion";
 import React, { useState } from "react";
 import { FaBookOpen } from "react-icons/fa";
 import { FaCheckDouble } from "react-icons/fa";
-import Prueba from "./secciones/Prueba";
+import Calendario from "./secciones/Calendario";
 import { IoIosHappy } from "react-icons/io";
 import { FaRegCopyright } from "react-icons/fa";
 import { GoDotFill } from "react-icons/go";
@@ -55,7 +55,7 @@ function Home() {
             descripcion: "Esta es la seccion de prueba",
             icon: <IoIosHappy />,
             next: next,
-            contenido: <Prueba buscar={buscar} next={next} actual={"TAB_prueba"} isDark={isDark} />,
+            contenido: <Calendario buscar={buscar} next={next} actual={"TAB_prueba"} isDark={isDark} />,
         },
     ]
     let encontrado;
@@ -81,7 +81,7 @@ function Home() {
     }
     return (
         <div className=" App min-h-[100vh] gap-3 flex flex-col md:grid md:grid-cols-12 p-5 bg-oraneg bg-gray-200 dark:bg-slate-900">
-            <aside className='sticky top-4 col-span-12 pb-10 bg-gray-100 border-t-2 border-orange-400 rounded shadow-xl h-fit md:col-span-4 lg:col-span-2 dark:bg-slate-800 text-start dark:border-t-0 dark:border-b-2 md:border-l-2 dark:border-cyan-500'>
+            <aside className='md:sticky top-4 col-span-12 pb-10 bg-gray-100 border-t-2 border-orange-400 rounded shadow-xl h-fit md:col-span-4 lg:col-span-2 dark:bg-slate-800 text-start dark:border-t-0 dark:border-b-2 md:border-l-2 dark:border-cyan-500'>
                 <ul className='grid grid-cols-2 gap-3 p-5 font-semibold text-black dark:text-white md:grid-cols-1 md:space-x-5'>
                     {visibles.map((opcion) => (
                         <li id={opcion.id} key={opcion.id} className="flex flex-row p-3 mt-1 bg-gray-200 rounded cursor-pointer md:bg-gray-100 dark:bg-slate-700 dark:md:bg-slate-800 md:bg-transparent md:p-0" onClick={() => setToggle(opcion.id)}>

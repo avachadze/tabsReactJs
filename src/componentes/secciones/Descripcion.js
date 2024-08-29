@@ -17,12 +17,14 @@ function Descripcion({ buscar, actual, isDark }) {
             error = fieldsErrors[fieldName].message
             type === "required" ? toast.error(<div>
                 {error}
-            </div>) : toast.info(<div>
-                {error}
             </div>)
+                : toast.info(
+                    <div>
+                        {error}
+                    </div>)
         }
     };
-   
+
     const checkBoxes = [ //checkboxes de idioma 
         {
             name: "idioma_esp", //name en checkbox
